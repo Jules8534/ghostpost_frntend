@@ -51,13 +51,13 @@ class CreatePost extends Component {
               </Link>
             </div>
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center"> Add Post</h1>
+              <h1 className="display-4 text-center"> Add Ghost Post </h1>
 
               <form noValidate onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <input
                     type="text"
-                    placeholder="More Information on GhostPost"
+                    placeholder="Type your post here!"
                     name="text"
                     className="form-control"
                     value={this.state.text}
