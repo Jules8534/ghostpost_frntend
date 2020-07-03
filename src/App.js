@@ -1,71 +1,30 @@
-import React from "react";
+import React, { Component }from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-    this.API_URL = "http://localhost:8000/api/posts/";
-  }
+import CreatePost from "./components/CreatePost.js";
+import ShowPostList from "./components/ShowPostList.js";
+// import ShowBoastDetails from "./components/UpdateBoastDetails";
+// import UpdateBroastInfo from "./components/UpdateBoastInfo";
 
-  componentDidMount() {
-    this.getPosts();
-  }
 
-  getPosts() {
-    fetch(this.API_URL)
-      .then(response => response.json())
-      .then(data => this.setState({ posts: data }));
-  }
+class App extends Component {
 
-  getPost(id) {
-
-  }
-
-  upvote(id) {
-    fetch(this.API_URL + `${id}/up/`, {method: 'POST'})
-      .then(response => this.getPosts());
-  }
-
-  downvote(id) {
-    fetch(this.API_URL + `${id}/down/`, {method: 'POST'})
-      .then(response => this.getPosts());
-  }
+  
+  // <Route path="/show-boast/:id" component={ShowBoastDetails} />
 
   render() {
-    const posts = this.state.posts;
-
-    if (!posts) {
-      return <p>Loading ...</p>;
-    }
-
-    return (
-      <div className="container">
-        
-        <table className="table">
-          <tbody>
-            {posts.map((post, index) => {
-              return (
-                <tr key={index}>
-                  <td>
-                    <a onClick={() => this.upvote(post.id)} href="#">Upvote</a>
-                  </td>
-                  <td>
-                    <a onClick={() => this.downvote(post.id)} href="#">Downvote</a>
-                  </td>
-                  <td>{post.datetime}</td>
-                  <td>{post.score}</td>
-                  <td>{post.boast}</td>
-                  <td>{post.text}</td>
-                  <td>{post.created_at}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+    return(
+      <Router>
+        <div>
+          <Route exact path="/" component={ShowPostList} />
+          <Route path="/create-post" component={CreatePost} />
+        </div>
+      </Router>
     );
   }
 }
+
+   
 
 export default App;
